@@ -20,6 +20,7 @@ class Node:
 
 
 def value(node, alpha, beta):
+<<<<<<< HEAD:Lab2/abPruning-template.py
 
     if node.rule == 'max':
         v = maxValue(node, alpha, beta)
@@ -31,9 +32,22 @@ def value(node, alpha, beta):
 def maxValue(node, alpha, beta):
 
     ## Begin your code
+=======
+    if node.rule == 'max':
+        return maxValue(node, alpha, beta)
+    elif node.rule == 'min':
+        return minValue(node, alpha, beta)
+    else:
+        raise Exception("Error")
+
+
+
+def maxValue(node, alpha, beta):
+>>>>>>> 4352096d6c607640423d2ba8a589489bad7f0650:Lab2/abPruning.py
     if node.isLeaf:
         node.visited = True
         return node.value
+    
     v = NINF
     for a in node.successor:
         v = max(v,minValue(a,alpha,beta))
@@ -43,17 +57,18 @@ def maxValue(node, alpha, beta):
     return v
 
 
-    # temp_max = node.successor[0].
-    ## End your code
-
 
 
 def minValue(node, alpha, beta):
+<<<<<<< HEAD:Lab2/abPruning-template.py
 
     ## Begin your code
+=======
+>>>>>>> 4352096d6c607640423d2ba8a589489bad7f0650:Lab2/abPruning.py
     if node.isLeaf:
         node.visited = True
         return node.value
+    
     v = INF
     for a in node.successor:
         v = min(v,maxValue(a,alpha,beta))
@@ -61,7 +76,6 @@ def minValue(node, alpha, beta):
             return v
         beta = min(beta, v)
     return v
-    ## End your code
     
 
 def unvisited(node):

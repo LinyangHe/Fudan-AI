@@ -20,28 +20,20 @@ class Node:
 
 
 def value(node, alpha, beta):
-
-    ## Begin your code
-    # if node.isLeaf:
     if node.rule == 'max':
-        v = maxValue(node, alpha, beta)
-    if node.rule == 'min':
-        v = minValue(node, alpha, beta)
-    return v
-    # else:
-
-
-    ## End your code
+        return maxValue(node, alpha, beta)
+    elif node.rule == 'min':
+        return minValue(node, alpha, beta)
+    else:
+        raise Exception("Error")
 
 
 
 def maxValue(node, alpha, beta):
-
-    ## Begin your code
-    # v = float("-inf")
     if node.isLeaf:
         node.visited = True
         return node.value
+    
     v = NINF
     for a in node.successor:
         v = max(v,minValue(a,alpha,beta))
@@ -51,18 +43,13 @@ def maxValue(node, alpha, beta):
     return v
 
 
-    # temp_max = node.successor[0].
-    ## End your code
-
 
 
 def minValue(node, alpha, beta):
-
-    ## Begin your code
-    # v = float("inf")
     if node.isLeaf:
         node.visited = True
         return node.value
+    
     v = INF
     for a in node.successor:
         v = min(v,maxValue(a,alpha,beta))
@@ -70,7 +57,6 @@ def minValue(node, alpha, beta):
             return v
         beta = min(beta, v)
     return v
-    ## End your code
     
 
 def unvisited(node):

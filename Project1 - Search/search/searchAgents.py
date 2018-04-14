@@ -47,7 +47,26 @@ class GoWestAgent(Agent):
     def getAction(self, state):
         "The agent receives a GameState (defined in pacman.py)."
         if Directions.WEST in state.getLegalPacmanActions():
+            # print state.getNumAgents()
+            # print state.getScore()
+            # print state.getCapsules()
+            # print state.getLegalActions()
+            # print state.getPacmanPosition()
+            # print state.getPacmanState()
+            # time.sleep(3)
             return Directions.WEST
+        else:
+            return Directions.STOP
+
+'''
+Linyang creates another test Agent below
+'''
+class GoEastAgent(Agent):
+    def getAction(self, state):
+        if Directions.EAST in state.getLegalPacmanActions():
+            print state.getLegalPacmanActions()
+            print "Food", state.getNumFood()
+            return Directions.EAST
         else:
             return Directions.STOP
 

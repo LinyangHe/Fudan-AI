@@ -162,6 +162,7 @@ def uniformCostSearch(problem):
         # Push the sons of the current node into the Stack.
         for pos, direction, _ in problem.getSuccessors(position):
             update_path = path + [direction]
+            #We have use the whole path to get the cost.
             cost = problem.getCostOfActions(update_path)
             print (cost)
             stack.push((pos, update_path), cost)

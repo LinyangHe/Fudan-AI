@@ -524,32 +524,22 @@ class AStarFoodSearchAgent(SearchAgent):
         self.searchType = FoodSearchProblem
 
 
-def mazeDistance(point1, point2, gameState):
-    prob = PositionSearchProblem(gameState, start=point1, goal=point2, warn=False, visualize=False)
-    # return len(search.astar(prob))
-    return len(search.astar(prob))
-
 def foodHeuristic(state, problem):
     """
     Your heuristic for the FoodSearchProblem goes here.
-
     This heuristic must be consistent to ensure correctness.  First, try to come
     up with an admissible heuristic; almost all admissible heuristics will be
     consistent as well.
-
     If using A* ever finds a solution that is worse uniform cost search finds,
     your heuristic is *not* consistent, and probably not admissible!  On the
     other hand, inadmissible or inconsistent heuristics may find optimal
     solutions, so be careful.
-
     The state is a tuple ( pacmanPosition, foodGrid ) where foodGrid is a Grid
     (see game.py) of either True or False. You can call foodGrid.asList() to get
     a list of food coordinates instead.
-
     If you want access to info like walls, capsules, etc., you can query the
     problem.  For example, problem.walls gives you a Grid of where the walls
     are.
-
     If you want to *store* information to be reused in other calls to the
     heuristic, there is a dictionary called problem.heuristicInfo that you can
     use. For example, if you only want to count the walls once and store that
@@ -558,54 +548,23 @@ def foodHeuristic(state, problem):
     problem.heuristicInfo['wallCount']
     """
     position, foodGrid = state
-    # print (foodGrid)
-    # print "*************"
     "*** YOUR CODE HERE ***"
-    # def path_length():
     game_state = problem.startingGameState
+    def mazeDistance(point1, point2):
+        problem = PositionSearchProblem(game_state, start=point1, goal=point2, warn=False, visualize=False)
+        # return len(search.bfs(problem))
+        # return len(search.ucs(problem))
+        return len(search.astar(problem))
+        # return len(search.dfs(problem))
 
-    path_lengths = []
-    food_positions = foodGrid.asList()
+    food_positions = {i:0 for i in foodGrid.asList()}
     if food_positions:
-        # print(problem.startingGameState)
-        for food_position in food_positions:
-            problem = PositionSearchProblem(game_state, start=position, goal=food_position, warn=False, visualize=False)
-            path_length = len(search.bfs(problem))
-            path_lengths.append(path_length)
-        return max(path_lengths)
-        # return max([mazeDistance(position, fp, game_state) for fp in fPositions])
-    return 0
-    # return 0
-
-def foodHeuristic(state, problem):
-    """
-    Your heuristic for the FoodSearchProblem goes here.
-    This heuristic must be consistent to ensure correctness.  First, try to come
-    up with an admissible heuristic; almost all admissible heuristics will be
-    consistent as well.
-    If using A* ever finds a solution that is worse uniform cost search finds,
-    your heuristic is *not* consistent, and probably not admissible!  On the
-    other hand, inadmissible or inconsistent heuristics may find optimal
-    solutions, so be careful.
-    The state is a tuple ( pacmanPosition, foodGrid ) where foodGrid is a Grid
-    (see game.py) of either True or False. You can call foodGrid.asList() to get
-    a list of food coordinates instead.
-    If you want access to info like walls, capsules, etc., you can query the
-    problem.  For example, problem.walls gives you a Grid of where the walls
-    are.
-    If you want to *store* information to be reused in other calls to the
-    heuristic, there is a dictionary called problem.heuristicInfo that you can
-    use. For example, if you only want to count the walls once and store that
-    value, try: problem.heuristicInfo['wallCount'] = problem.walls.count()
-    Subsequent calls to this heuristic can access
-    problem.heuristicInfo['wallCount']
-    """
-    position, foodGrid = state
-    "*** YOUR CODE HERE ***"
-    game_state = problem.startingGameState
-    fPositions = foodGrid.asList()
-    if len(fPositions):
-        return max([mazeDistance(position, fp, game_state) for fp in fPositions])
+        if len(food_positions) < 20:
+            return max([util.manhattanDistance(position, food_position) for food_position in food_positions])
+        elif len(food_positions) < 50:
+            return max([mazeDistance(position, food_position) for food_position in food_positions])
+        else:
+            return 0
     return 0
 
 class ClosestDotSearchAgent(SearchAgent):

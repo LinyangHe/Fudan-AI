@@ -550,19 +550,17 @@ def foodHeuristic(state, problem):
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
     game_state = problem.startingGameState
-    def mazeDistance(point1, point2):
+    def pathDistance(point1, point2):
         problem = PositionSearchProblem(game_state, start=point1, goal=point2, warn=False, visualize=False)
-        # return len(search.bfs(problem))
-        # return len(search.ucs(problem))
-        return len(search.astar(problem))
-        # return len(search.dfs(problem))
+        return len(search.bfs(problem))
+        # return len(search.astar(problem))
 
     food_positions = {i:0 for i in foodGrid.asList()}
     if food_positions:
         if len(food_positions) < 20:
             return max([util.manhattanDistance(position, food_position) for food_position in food_positions])
         elif len(food_positions) < 50:
-            return max([mazeDistance(position, food_position) for food_position in food_positions])
+            return max([pathDistance(position, food_position) for food_position in food_positions])
         else:
             return 0
     return 0
@@ -594,11 +592,24 @@ class ClosestDotSearchAgent(SearchAgent):
         # Here are some useful elements of the startState
         startPosition = gameState.getPacmanPosition()
         food = gameState.getFood()
-        walls = gameState.getWalls()
-        problem = AnyFoodSearchProblem(gameState)
+        # walls = gameState.getWalls()
+        # problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        def pathDistance(point1, point2):
+            problem = PositionSearchProblem(gameState, start=point1, goal=point2, warn=False, visualize=False)
+            return len(search.bfs(problem))
+
+        food_distances = []
+        for i, row in enumerate(food):
+            for j, isFood in enumerate(row):
+                if isFood: 
+                    food_distances.append([pathDistance(startPosition, (i,j)), (i,j)])
+        _, closestDot = min(food_distances)
+        nPro = PositionSearchProblem(gameState, start=startPosition, goal=closestDot, warn=False, visualize=False)
+        return search.astar(nPro)
+
+        # util.raiseNotDefined()
 
 
 class AnyFoodSearchProblem(PositionSearchProblem):
@@ -635,4 +646,5 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x, y = state
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        food_positions = self.food.asList()
+        return state in food_positions

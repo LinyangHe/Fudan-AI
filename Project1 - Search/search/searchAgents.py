@@ -434,7 +434,25 @@ def cornersHeuristic(state, problem):
     walls = problem.walls
 
     "*** YOUR CODE HERE ***"
-    return 0  # Default to trivial solution
+    #In this heuristic, I add the distance between the pacman and all
+    #the unvisited corners together. As for the distance, we can choose
+    #either manhattan or euclidean.
+
+    def manhanttanDis(xy1, xy2):
+        return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+
+    def euclideanDis(xy1, xy2):
+        return ((xy1[0] - xy2[0]) ** 2 + (xy1[1] - xy2[1]) ** 2) ** 0.5
+
+    position, corners_info = state[0], state[1]
+    estimate_distance = 0
+    for corner in corners_info:
+        if not corners_info[corner]:
+            # estimate_distance += manhanttanDis(position, corner)
+            estimate_distance += euclideanDis(position, corner)
+
+    # return 0
+    return estimate_distance  # Default to trivial solution
 
 
 class AStarCornersAgent(SearchAgent):

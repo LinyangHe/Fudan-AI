@@ -117,7 +117,8 @@ def breadthFirstSearch(problem):
     stack = util.Queue()
     root_position = problem.getStartState()
     path = []
-    visited_positions = {}
+    # visited_positions = {}
+    visited_positions = []
 
     stack.push((root_position, path))
     while not stack.isEmpty():
@@ -130,7 +131,8 @@ def breadthFirstSearch(problem):
         if position in visited_positions:
             continue
         else:
-            visited_positions[position] = 1
+            visited_positions.append(position)
+            # visited_positions[position] = 1
         # Push the sons of the current node into the Stack.
         for pos, direction, _ in problem.getSuccessors(position):
             stack.push((pos, path + [direction]))
@@ -186,7 +188,9 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     stack = util.PriorityQueue()
     root_position = problem.getStartState()
     path = []
-    visited_positions = {}
+    # visited_positions = {}
+    visited_positions = []
+
 
     stack.push((root_position, path), 0)
     while not stack.isEmpty():
@@ -197,8 +201,8 @@ def aStarSearch(problem, heuristic=nullHeuristic):
         if position in visited_positions:
             continue
         else:
-            # visited_positions.append(position)
-            visited_positions[position] = 1
+            visited_positions.append(position)
+            # visited_positions[position] = 1
 
         # Check if the node is the GoalState, if so, return the path
         if problem.isGoalState(position):

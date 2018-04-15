@@ -439,16 +439,18 @@ def cornersHeuristic(state, problem):
 
     position, corners_info = state[0], state[1]
     estimate_distance = 0
+    "If you want to choose the second heuristic, comment the above line, decomment the following line"
     # estimate_distances = []
     for corner in corners_info:
         if not corners_info[corner]:
             estimate_distance += util.manhattanDistance(position, corner)
-            # estimate_distance += util.euclideanDistance(position, corner)
-            # estimate_distances.append(util.manhanttanDistance(position, corner))
+            "If you want to choose the second heuristic, comment the above line, decomment the following line"
+            # estimate_distances.append(util.manhattanDistance(position, corner))
 
     return estimate_distance  # Default to trivial solution
+    "If you want to choose the second heuristic, comment the above line, decomment the following 4 lines"
     # if estimate_distances:
-    #     return min(estimate_distances)  # Default to trivial solution
+    #     return min(estimate_distances) 
     # else:
     #     return 0
 
@@ -605,9 +607,9 @@ class ClosestDotSearchAgent(SearchAgent):
             for j, isFood in enumerate(row):
                 if isFood: 
                     food_distances.append([pathDistance(startPosition, (i,j)), (i,j)])
-        _, closestDot = min(food_distances)
-        nPro = PositionSearchProblem(gameState, start=startPosition, goal=closestDot, warn=False, visualize=False)
-        return search.astar(nPro)
+        minimal, closestDot = min(food_distances)
+        real_prob = PositionSearchProblem(gameState, start=startPosition, goal=closestDot, warn=False, visualize=False)
+        return search.astar(real_prob)
 
         # util.raiseNotDefined()
 

@@ -190,28 +190,29 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     while not stack.isEmpty():
         # Pop the first node in the Stack
         position, path = stack.pop()
-        # Check if the node is the GoalState, if so, return the path
-        if problem.isGoalState(position):
-            return path
+
         # If the node has been visited, continue, else visit the node.
         if position in visited_positions:
             continue
         else:
             visited_positions.append(position)
+
+        # Check if the node is the GoalState, if so, return the path
+        if problem.isGoalState(position):
+            return path
+
         # Push the sons of the current node into the Stack.
         for pos, direction, _ in problem.getSuccessors(position):
-            update_path = path + [direction]
             #We have use the whole path to get the gx part, for the heuristic part, we will
             #use the heuristic function as a parameter input.
+            update_path = path + [direction]
             gx = problem.getCostOfActions(update_path)
             hx = heuristic(pos, problem)
             fx = gx + hx
-            # print (fx)
             stack.push((pos, update_path), fx)
 
     return path
     # util.raiseNotDefined()
-
 
 # Abbreviations
 bfs = breadthFirstSearch

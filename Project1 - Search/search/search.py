@@ -164,7 +164,7 @@ def uniformCostSearch(problem):
             update_path = path + [direction]
             #We have use the whole path to get the cost.
             cost = problem.getCostOfActions(update_path)
-            print (cost)
+            # print (cost)
             stack.push((pos, update_path), cost)
 
     return path
@@ -181,7 +181,36 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    stack = util.PriorityQueue()
+    root_position = problem.getStartState()
+    path = []
+    visited_positions = []
+
+    stack.push((root_position, path), 0)
+    while not stack.isEmpty():
+        # Pop the first node in the Stack
+        position, path = stack.pop()
+        # Check if the node is the GoalState, if so, return the path
+        if problem.isGoalState(position):
+            return path
+        # If the node has been visited, continue, else visit the node.
+        if position in visited_positions:
+            continue
+        else:
+            visited_positions.append(position)
+        # Push the sons of the current node into the Stack.
+        for pos, direction, _ in problem.getSuccessors(position):
+            update_path = path + [direction]
+            #We have use the whole path to get the gx part, for the heuristic part, we will
+            #use the heuristic function as a parameter input.
+            gx = problem.getCostOfActions(update_path)
+            hx = heuristic(pos, problem)
+            fx = gx + hx
+            # print (fx)
+            stack.push((pos, update_path), fx)
+
+    return path
+    # util.raiseNotDefined()
 
 
 # Abbreviations

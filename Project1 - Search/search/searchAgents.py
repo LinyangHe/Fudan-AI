@@ -598,6 +598,7 @@ class ClosestDotSearchAgent(SearchAgent):
         # problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
+        #We need to use the searchProblem to find the path, so that we can find the closet dot.
         def pathDistance(point1, point2):
             problem = PositionSearchProblem(gameState, start=point1, goal=point2, warn=False, visualize=False)
             return len(search.bfs(problem))

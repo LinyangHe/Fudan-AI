@@ -24,13 +24,14 @@ def create_nqueens_csp(n=8):
     We will use the second way of creating a N-Queen board. That is we will
     denote the location of each line's Queen rather than whether there's a Queen in a mini square.
     '''
-    domain = [i for i in range(n)]
-    for i in range(n):
-        csp.add_variable(i, domain)
+    iter_n = range(n)
+    values = [i for i in iter_n]
+    for i in iter_n:
+        csp.add_variable(i, values)
     # Next we will add the binary factor. Considering that we create the N-Queen representation based on line, just consider that the column of each Queen isn't the same and they are not in the some diagonal.
     # END_YOUR_CODE
-    for i in range(n):
-        for j in range(n):
+    for i in iter_n:
+        for j in iter_n:
             if not i == j:
                 csp.add_binary_factor(i, j, lambda x, y: x != y
                                       and abs(i - j) != abs(x - y))
@@ -243,22 +244,24 @@ class BacktrackingSearch():
             # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry
             # if you deviate from this)
 
-
             '''
             It's quite easy to solve this probelm. We just need to find the variable whose
             remaining domain is the least.
             '''
             min_temp_cnt = 999999
+            temp_cnt = 0
             for var in self.csp.variables:
-                if var not in assignment:
-                    temp_cnt = 0
-                    for each_value in self.domains[var]:
-                        delta_weight = self.get_delta_weight(assignment, var, each_value)
-                        if delta_weight: 
-                            temp_cnt += 1
-                    if temp_cnt < min_temp_cnt:
-                        min_temp_cnt = temp_cnt
-                        var_mcv = var
+                if var in assignment:
+                    continue
+                for each_value in self.domains[var]:
+                    delta_weight = self.get_delta_weight(
+                        assignment, var, each_value)
+                    if delta_weight:
+                        temp_cnt += 1
+                if temp_cnt < min_temp_cnt:
+                    var_mcv = var
+                    min_temp_cnt = temp_cnt
+                temp_cnt = 0
             return var_mcv
             # raise Exception("Not implemented yet")
             # END_YOUR_CODE
@@ -290,7 +293,8 @@ class BacktrackingSearch():
         First, we need to create a queue to store the arcs.
         '''
         father = var
-        csp_queue = [(father, son) for son in self.csp.get_neighbor_vars(father)]
+        csp_queue = [(father, son)
+                     for son in self.csp.get_neighbor_vars(father)]
         while csp_queue:
             father, son = csp_queue.pop(0)
             '''
@@ -308,7 +312,7 @@ class BacktrackingSearch():
                 if not arc_consistency:
                     update = True
                     unconsistency_son_value.append(val_son)
-            
+
             if update:
                 for val_son in unconsistency_son_value:
                     self.domains[son].remove(val_son)
@@ -319,8 +323,6 @@ class BacktrackingSearch():
                 for grand_son in grand_sons:
                     if not grand_son == father:
                         csp_queue.append((son, grand_son))
-
-
 
         # raise Exception("Not implemented yet")
         # END_YOUR_CODE

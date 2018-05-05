@@ -313,7 +313,7 @@ class BacktrackingSearch():
                 for val_son in unconsistency_son_value:
                     self.domains[son].remove(val_son)
                 '''
-                Then we need to spread to the grandson nodes.
+                Then we need to expand to the grandson nodes.
                 '''
                 grand_sons = self.csp.get_neighbor_vars(son)
                 for grand_son in grand_sons:

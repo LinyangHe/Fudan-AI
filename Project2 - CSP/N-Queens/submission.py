@@ -1,10 +1,12 @@
-import collections, util, copy
+import collections
+import util
+import copy
 
 
 ############################################################
 # Problem 1
 
-def create_nqueens_csp(n = 8):
+def create_nqueens_csp(n=8):
     """
     Return an N-Queen problem on the board of size |n| * |n|.
     You should call csp.add_variable() and csp.add_binary_factor().
@@ -16,16 +18,30 @@ def create_nqueens_csp(n = 8):
     """
     csp = util.CSP()
     # Problem 1a
-    # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry if you deviate from this)
-
-    
+    # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry if you
+    # deviate from this)
+    '''
+    We will use the second way of creating a N-Queen board. That is we will
+    denote the location of each line's Queen rather than whether there's a Queen in a mini square.
+    '''
+    domain = [i for i in range(n)]
+    for i in range(n):
+        csp.add_variable(i, domain)
+    # Next we will add the binary factor. Considering that we create the N-Queen representation based on line, just consider that the column of each Queen isn't the same and they are not in the some diagonal.
     # END_YOUR_CODE
+    for i in range(n):
+        for j in range(n):
+            if not i == j:
+                csp.add_binary_factor(i, j, lambda x, y: x != y
+                                      and abs(i - j) != abs(x - y))
     return csp
 
 # A backtracking algorithm that solves weighted CSP.
 # Usage:
 #   search = BacktrackingSearch()
 #   search.solve(csp)
+
+
 class BacktrackingSearch():
 
     def reset_results(self):
@@ -85,14 +101,17 @@ class BacktrackingSearch():
         w = 1.0
         if self.csp.unaryFactors[var]:
             w *= self.csp.unaryFactors[var][val]
-            if w == 0: return w
+            if w == 0:
+                return w
         for var2, factor in self.csp.binaryFactors[var].iteritems():
-            if var2 not in assignment: continue  # Not assigned yet
+            if var2 not in assignment:
+                continue  # Not assigned yet
             w *= factor[val][assignment[var2]]
-            if w == 0: return w
+            if w == 0:
+                return w
         return w
 
-    def solve(self, csp, mcv = False, ac3 = False):
+    def solve(self, csp, mcv=False, ac3=False):
         """
         Solves the given weighted CSP using heuristics as specified in the
         parameter. Note that unlike a typical unweighted CSP where the search
@@ -116,7 +135,8 @@ class BacktrackingSearch():
         self.reset_results()
 
         # The dictionary of domains of every variable in the CSP.
-        self.domains = {var: list(self.csp.values[var]) for var in self.csp.variables}
+        self.domains = {
+            var: list(self.csp.values[var]) for var in self.csp.variables}
 
         # Perform backtracking search.
         self.backtrack({}, 0, 1)
@@ -170,7 +190,8 @@ class BacktrackingSearch():
                 deltaWeight = self.get_delta_weight(assignment, var, val)
                 if deltaWeight > 0:
                     assignment[var] = val
-                    self.backtrack(assignment, numAssigned + 1, weight * deltaWeight)
+                    self.backtrack(assignment, numAssigned +
+                                   1, weight * deltaWeight)
                     del assignment[var]
         else:
             # Arc consistency check is enabled.
@@ -190,7 +211,8 @@ class BacktrackingSearch():
                     # enforce arc consistency
                     self.arc_consistency_check(var)
 
-                    self.backtrack(assignment, numAssigned + 1, weight * deltaWeight)
+                    self.backtrack(assignment, numAssigned +
+                                   1, weight * deltaWeight)
                     # restore the previous domains
                     self.domains = localCopy
                     del assignment[var]
@@ -208,7 +230,8 @@ class BacktrackingSearch():
         if not self.mcv:
             # Select a variable without any heuristics.
             for var in self.csp.variables:
-                if var not in assignment: return var
+                if var not in assignment:
+                    return var
         else:
             # Problem 1b
             # Heuristic: most constrained variable (MCV)
@@ -217,7 +240,8 @@ class BacktrackingSearch():
             # Hint: get_delta_weight gives the change in weights given a partial
             #       assignment, a variable, and a proposed value to this variable
             # Hint: for ties, choose the variable with lowest index in self.csp.variables
-            # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry if you deviate from this)
+            # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry
+            # if you deviate from this)
             raise Exception("Not implemented yet")
             # END_YOUR_CODE
 
@@ -241,6 +265,7 @@ class BacktrackingSearch():
         #   => self.csp.binaryFactors[var1][var2][val1][val2] == 0
         #   (self.csp.binaryFactors[var1][var2] returns a nested dict of all assignments)
 
-        # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if you deviate from this)
+        # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if
+        # you deviate from this)
         raise Exception("Not implemented yet")
         # END_YOUR_CODE

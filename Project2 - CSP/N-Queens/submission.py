@@ -285,10 +285,41 @@ class BacktrackingSearch():
 
         # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if
         # you deviate from this)
-        csp_queue = [(i, var) for i in self.csp.get_neighbor_vars(var)]
+
+        '''
+        First, we need to create a queue to store the arcs.
+        '''
+        father = var
+        csp_queue = [(father, son) for son in self.csp.get_neighbor_vars(father)]
         while csp_queue:
-            x, y = csp_queue.pop(0)
+            father, son = csp_queue.pop(0)
+            '''
+            Then we need to check if the arc is consistent. If it is not, we need to
+            update. Besides, we should record the son values that should be removed.
+            '''
+            unconsistency_son_value = []
+            update = False
+            for val_son in self.domains[son]:
+                arc_consistency = False
+                for val_father in self.domains[father]:
+                    if self.csp.binaryFactors[son][father][val_son][val_father]:
+                        arc_consistency = True
+                        break
+                if not arc_consistency:
+                    update = True
+                    unconsistency_son_value.append(val_son)
             
+            if update:
+                for val_son in unconsistency_son_value:
+                    self.domains[son].remove(val_son)
+                '''
+                Then we need to spread to the grandson nodes.
+                '''
+                grand_sons = self.csp.get_neighbor_vars(son)
+                for grand_son in grand_sons:
+                    if not grand_son == father:
+                        csp_queue.append((son, grand_son))
+
 
 
         # raise Exception("Not implemented yet")

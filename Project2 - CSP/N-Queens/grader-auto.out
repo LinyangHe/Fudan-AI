@@ -24,9 +24,8 @@
             'extraCredit': False,
             'maxPoints': 10,
             'maxSeconds': 1,
-            'messages': ["Expected '21', but got '114'",
-                         "Expected '769', but got '2057'"],
+            'messages': [],
             'name': '1c-1-basic',
-            'points': 0,
+            'points': 10,
             'seconds': 0}],
- 'totalPoints': 10}
+ 'totalPoints': 20}

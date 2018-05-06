@@ -165,3 +165,5 @@ def create_weighted_csp():
     csp.add_unary_factor('B', lambda y : 1.0 / y)
     csp.add_binary_factor('A', 'B', lambda x, y : x != y)
     return csp
+
+create_map_coloring_csp()

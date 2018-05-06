@@ -38,8 +38,8 @@ def create_nqueens_csp(n=8):
 
 # A backtracking algorithm that solves weighted CSP.
 # Usage:
-search = BacktrackingSearch()
-search.solve(csp)
+# search = BacktrackingSearch()
+# search.solve(csp)
 
 
 class BacktrackingSearch():
@@ -242,18 +242,24 @@ class BacktrackingSearch():
             # Hint: for ties, choose the variable with lowest index in self.csp.variables
             # BEGIN_YOUR_CODE (our solution is 7 lines of code, but don't worry
             # if you deviate from this)
-            min_cnt = 9999999
+
+
+            '''
+            It's quite easy to solve this probelm. We just need to find the variable whose
+            remaining domain is the least.
+            '''
+            min_temp_cnt = 999999
             for var in self.csp.variables:
                 if var not in assignment:
-                    cnt = 0
+                    temp_cnt = 0
                     for each_value in self.domains[var]:
                         delta_weight = self.get_delta_weight(assignment, var, each_value)
-                        if not delta_weight: cnt += 1
-                    if cnt < min_cnt:
-                        min_cnt = cnt
+                        if delta_weight: 
+                            temp_cnt += 1
+                    if temp_cnt < min_temp_cnt:
+                        min_temp_cnt = temp_cnt
                         var_mcv = var
             return var_mcv
-
             # raise Exception("Not implemented yet")
             # END_YOUR_CODE
 
@@ -279,5 +285,11 @@ class BacktrackingSearch():
 
         # BEGIN_YOUR_CODE (our solution is 20 lines of code, but don't worry if
         # you deviate from this)
-        raise Exception("Not implemented yet")
+        csp_queue = [(i, var) for i in self.csp.get_neighbor_vars(var)]
+        while csp_queue:
+            x, y = csp_queue.pop(0)
+            
+
+
+        # raise Exception("Not implemented yet")
         # END_YOUR_CODE

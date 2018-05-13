@@ -144,21 +144,3 @@ while True:
         policy_iteration(nextState, actionReward)
     except EOFError:
         break
-
-
-# Try to solve Grid World problem based on MDP.
-# The grid world is of 5*5 size. The cells of the grid correspond to
-# the states of the environment. At each cell, four actions are possible: north,
-# south, east, and west, which deterministically cause the agent to move one
-# cell in the respective direction on the grid. Actions that would take the agent
-# off the grid leave its location unchanged, but also result in a reward of -1.
-# Other actions result in a reward of 0, except those that move the agent out
-# of the special states A and B. From state A, all four actions yield a reward of
-# A_reward and take the agent to A_to. From state B, all actions yield a reward of B_reward
-# and take the agent to B_to.The discount factor gamma=0.9.
-# Try to use value iteration and policy iteration.
-
-#input:
-# [0,1] [4,1] 10.0
-# [0,3] [2,3] 5.0
-

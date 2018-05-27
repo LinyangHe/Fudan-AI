@@ -262,7 +262,7 @@ smallMDP.computeStates()
 largeMDP.computeStates()
 
 def problem_4b():
-    print("\n4-b")
+    print("\nProblem 4b")
     print("\n********smallMDP********")
     rl_small = QLearningAlgorithm(smallMDP.actions, smallMDP.discount(),
                                   identityFeatureExtractor, 0.2)
@@ -350,9 +350,11 @@ def problem_4d():
     QL = QLearningAlgorithm(originalMDP.actions, originalMDP.discount(), blackjackFeatureExtractor, 0.2)
     QLReward = util.simulate(newThresholdMDP, QL, numTrials=30000)
 
-    print ("\n4-d")
-    print 'VI reward: {}'.format(sum(VIReward)*1.0/len(VIReward))
-    print 'QL reward: {}'.format(sum(QLReward)*1.0/len(QLReward))
+    VI_reward = float(sum(VIReward))/len(VIReward)
+    QL_reward = float(sum(QLReward))/len(QLReward)
+    print ("\nProblem 4d")
+    print ("Value Iteration reward",VI_reward)
+    print ("Q-Learning reward",QL_reward)
 
 if __name__ == '__main__':
     problem_4b()

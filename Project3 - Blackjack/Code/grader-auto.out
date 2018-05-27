@@ -1,0 +1,13 @@
+{'fatalError': True,
+ 'maxTotalPoints': 3,
+ 'messages': ["Threw exception when importing 'submission': list assignment index out of range"],
+ 'mode': 'auto',
+ 'parts': [{'description': 'Hidden test for CounterexampleMDP. Ensure that V[startState] is greater after noise is added.',
+            'extraCredit': False,
+            'maxPoints': 3,
+            'maxSeconds': 5,
+            'messages': [],
+            'name': '2a-hidden',
+            'points': 0,
+            'seconds': 0}],
+ 'totalPoints': 0}

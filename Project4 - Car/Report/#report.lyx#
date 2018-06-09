@@ -323,12 +323,100 @@ $C_3$
 
 \end_inset
 
- as
+ with the usage of the relationship between 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$C_3$
 \end_layout
 
-\begin_layout Standard
-to use the relationship between the Just use the Bayesian formula similarly,
- we have:
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$C_2$
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$$P(d_3 = 1|c_2) = 
+\backslash
+sum_{c_3} p(c_3 
+\backslash
+mid c_2) p(d_3 = 1 
+\backslash
+mid c_3)
+\end_layout
+
+\begin_layout Plain Layout
+
+    =
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+begin{cases}
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+epsilon 
+\backslash
+eta + (1-
+\backslash
+epsilon) (1-
+\backslash
+eta) & 
+\backslash
+text{if $c_2 = 1$} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    (1-
+\backslash
+epsilon) 
+\backslash
+eta + 
+\backslash
+epsilon (1-
+\backslash
+eta) & 
+\backslash
+text{if $c_2 = 0$}.
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+end{cases}$$
+\end_layout
+
+\end_inset
+
+Just use the Bayesian formula similarly, we have:
 \begin_inset ERT
 status open
 
@@ -339,7 +427,7 @@ status open
 
 \begin_layout Plain Layout
 
-    
+
 \backslash
 begin{align}
 \end_layout
@@ -357,9 +445,9 @@ mid D_2 = 0, D_3 = 1)
 
     & 
 \backslash
-propto f_1(c_2) p(d_2 = 0 
+propto P(c_2)P(d_2 = 0 
 \backslash
-mid c_2) f_2(c_2) 
+mid c_2) P(d_3=1|c_2) 
 \backslash
 
 \backslash
@@ -414,6 +502,10 @@ epsilon (1-
 eta)) & 
 \backslash
 text{if $c_2 = 0$}.
+\backslash
+
+\backslash
+
 \end_layout
 
 \begin_layout Plain Layout
@@ -425,7 +517,7 @@ end{cases}
 
 \begin_layout Plain Layout
 
-    
+
 \backslash
 end{align}
 \end_layout
@@ -437,7 +529,592 @@ end{align}
 
 \end_inset
 
+Then after normalizing, we have:
+\end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$$
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0, D_3 = 1) =
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+frac{
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+epsilon
+\backslash
+eta^2 + (1-
+\backslash
+epsilon)(1-
+\backslash
+eta)
+\backslash
+eta
+\end_layout
+
+\begin_layout Plain Layout
+
+    }{
+\end_layout
+
+\begin_layout Plain Layout
+
+      
+\backslash
+epsilon
+\backslash
+eta^2 + 2(1-
+\backslash
+epsilon)(1-
+\backslash
+eta)
+\backslash
+eta + 
+\backslash
+epsilon(1-
+\backslash
+eta)^2
+\end_layout
+
+\begin_layout Plain Layout
+
+    }.
+\end_layout
+
+\begin_layout Plain Layout
+
+    $$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+1.c
+\end_layout
+
+\begin_layout Standard
+Suppose 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+epsilon = 0.1$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+eta = 0.2$
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Compute and compare the probabilities 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0)$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0, D_3 = 1)$
+\end_layout
+
+\end_inset
+
+.
+ Give numbers, round your answer to 4 significant digits.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Just according to the solutions above, we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+   $$
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0) = 0.2$$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+and
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+    $$
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0, D_3 = 1) 
+\backslash
+approx 0.42.
+\end_layout
+
+\begin_layout Plain Layout
+
+    $$
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+How did adding the second sensor reading
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ $D_3 = 1$
+\end_layout
+
+\end_inset
+
+ change the result? Explain your intuition in terms of the car positions
+ with respect to the observations.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Considering that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+epsilon$
+\end_layout
+
+\end_inset
+
+ is small, the position is unlikely to change across time steps quite much.
+ Therefore, when the new reading of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$D_3=1$
+\end_layout
+
+\end_inset
+
+ is observed, it increases the possibility that the car was at position
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1$
+\end_layout
+
+\end_inset
+
+ at time
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ $t=2$
+\end_layout
+
+\end_inset
+
+, despite the sensor reading 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$D_2 = 0$
+\end_layout
+
+\end_inset
+
+ that suggests a priori that the car is unlikely 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+(0.2)
+\end_layout
+
+\end_inset
+
+ to be at position 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1$
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+hat would you have to set
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+ $
+\backslash
+epsilon$
+\end_layout
+
+\end_inset
+
+ while keeping 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+eta = 0.2$
+\end_layout
+
+\end_inset
+
+ so that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0) = 
+\backslash
+mathbb P(C_2 = 1 
+\backslash
+mid D_2 = 0, D_3 = 1)$
+\end_layout
+
+\end_inset
+
+? Explain your intuition in terms of the car positions with respect to the
+ observations.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+When 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+epsilon = 0.5$
+\end_layout
+
+\end_inset
+
+.
+ This means that the car moving to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$0$
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$1$
+\end_layout
+
+\end_inset
+
+ or vice verse with the same probability 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$0.5$
+\end_layout
+
+\end_inset
+
+ despite of its previous position.
+ In this situation, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$D_3 = 1$
+\end_layout
+
+\end_inset
+
+ doesn't matter.
+ This can be checked numerically as well.
+ If we set 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+$
+\backslash
+epsilon = 0.5$
+\end_layout
+
+\end_inset
+
+ in the formula in 1.b, we can get the same answer as in 1.a.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection*
+Problem 2: Emission probabilities
+\end_layout
+
+\begin_layout Standard
+This problem is not so hard.
+ Just follow the notes, we can finish the observe method well.
+ You can find more detials in the python script.
+ And we can drive the car with exact inference which can lead this result:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted1.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Problem 3: Transition probabilities
+\end_layout
+
+\begin_layout Standard
+This problem is based on the situation that the car is moving according
+ to a transition probabilities.
+ Note:
+\end_layout
+
+\begin_layout Itemize
+Use the transition probabilities in self.transProb, which gives all ((oldTile,
+ newTile), transProb) key-val pairs that you must consider.
+ 
+\end_layout
+
+\begin_layout Itemize
+Other ((oldTile, newTile), transProb) pairs not in self.transProb have zero
+ probabilities and do not need to be considered.
+ 
+\end_layout
+
+\begin_layout Itemize
+util.Belief is a class (constructor) that represents the belief for a single
+ inference state of a single car (see util.py).
+ 
+\end_layout
+
+\begin_layout Itemize
+Be sure to update beliefs in self.belief ONLY based on the current self.belief
+ distribution.
+ Do NOT invoke any other updated belief values while modifying self.belief.
+ 
+\end_layout
+
+\begin_layout Itemize
+Use addProb and getProb to manipulate beliefs to add/get probabilities from
+ a belief (see util.py).
+ 
+\end_layout
+
+\begin_layout Itemize
+Don't forget to normalize self.belief!
+\end_layout
+
+\begin_layout Standard
+You can find more details in the python file.
+ And we can get the result as following figures showing respectively.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted2.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted3.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Problem 4: Particle filtering
+\end_layout
+
+\begin_layout Standard
+Though exact inference works well for the small maps, it wastes a lot of
+ effort computing probabilities for cars being on unlikely tiles.
+ We can solve this problem using a particle filter which has complexity
+ linear in the number of particles rather than linear in the number of tiles.
+ Implement all necessary methods for the ParticleFilter class in submission.py.
+ When complete, you should be able to track cars nearly as effectively as
+ with exact inference.
+\end_layout
+
+\begin_layout Standard
+This algorithm takes two steps: # 
+\end_layout
+
+\begin_layout Standard
+1.
+ Reweight the particles based on the observation.
+ # Concept: We had an old distribution of particles, we want to update these
+ # these particle distributions with the given observed distance by # the
+ emission probability.
+ # Think of the particle distribution as the unnormalized posterior # probabilit
+y where many tiles would have 0 probability.
+ # Tiles with 0 probabilities (no particles), we do not need to update.
+ # This makes particle filtering runtime to be O(|particles|).
+ # In comparison, exact inference (problem 2 + 3), most tiles would # would
+ have non-zero probabilities (though can be very small).
+ # 
+\end_layout
+
+\begin_layout Standard
+2.
+ Resample the particles.
+ # Concept: Now we have the reweighted (unnormalized) distribution, we can
+ now # resample the particles and update where each particle should be at.
+ # # - agentX: x location of your car (not the one you are tracking) # -
+ agentY: y location of your car (not the one you are tracking) # - observedDist:
+ true distance plus a mean-zero Gaussian with standard deviation Const.SONAR_STD
+ #
 \end_layout
 
 \end_body

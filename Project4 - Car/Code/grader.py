@@ -6,6 +6,7 @@ import graderUtil
 import util
 import collections
 import copy
+import platform
 
 grader = graderUtil.Grader()
 submission = grader.load('submission')
@@ -183,6 +184,25 @@ def test4a_0():
 
     pf.observe(555, 193, 800)
 
+    grader.requireIsEqual(0.015, pf.belief.getProb(20, 4))
+    grader.requireIsEqual(0.135, pf.belief.getProb(21, 5))
+    grader.requireIsEqual(0.85, pf.belief.getProb(22, 6))
+    grader.requireIsEqual(0.0, pf.belief.getProb(8, 4))
+
+    pf.observe(525, 193, 830)
+
+    grader.requireIsEqual(0.0, pf.belief.getProb(20, 4))
+    grader.requireIsEqual(0.01, pf.belief.getProb(21, 5))
+    grader.requireIsEqual(0.99, pf.belief.getProb(22, 6))
+    grader.requireIsEqual(0.0, pf.belief.getProb(8, 4))
+
+def test4a_0_windows():
+    random.seed(3)
+
+    pf = submission.ParticleFilter(30, 13)
+
+    pf.observe(555, 193, 800)
+
     grader.requireIsEqual(0.115, pf.belief.getProb(20, 4))
     grader.requireIsEqual(0.195, pf.belief.getProb(21, 5))
     grader.requireIsEqual(0.69, pf.belief.getProb(22, 6))
@@ -195,10 +215,43 @@ def test4a_0():
     grader.requireIsEqual(0.99, pf.belief.getProb(22, 6))
     grader.requireIsEqual(0.0, pf.belief.getProb(8, 4))
 
-
-grader.addBasicPart('4a-0-basic', test4a_0, 2, description="4a basic test for PF observe")
+if platform.system() == 'Windows':
+    grader.addBasicPart('4a-0-basic', test4a_0_windows, 2, description="4a basic test for PF observe")
+else:
+    grader.addBasicPart('4a-0-basic', test4a_0, 2, description="4a basic test for PF observe")
 
 def test4a_1():
+    random.seed(3)
+    pf = submission.ParticleFilter(30, 13)
+    grader.requireIsEqual(69, len(pf.particles)) # This should not fail unless your code changed the random initialization code.
+
+    pf.elapseTime()
+    grader.requireIsEqual(200, sum(pf.particles.values())) # Do not lose particles
+    grader.requireIsEqual(66, len(pf.particles)) # Most particles lie on the same (row, col) locations
+
+    grader.requireIsEqual(9, pf.particles[(3,9)])
+    grader.requireIsEqual(0, pf.particles[(2,10)])
+    grader.requireIsEqual(7, pf.particles[(8,4)])
+    grader.requireIsEqual(6, pf.particles[(12,6)])
+    grader.requireIsEqual(1, pf.particles[(7,8)])
+    grader.requireIsEqual(1, pf.particles[(11,6)])
+    grader.requireIsEqual(0, pf.particles[(18,7)])
+    grader.requireIsEqual(1, pf.particles[(20,5)])
+
+    pf.elapseTime()
+    grader.requireIsEqual(200, sum(pf.particles.values())) # Do not lose particles
+    grader.requireIsEqual(61, len(pf.particles)) # Slightly more particles lie on the same (row, col) locations
+
+    grader.requireIsEqual(6, pf.particles[(3,9)])
+    grader.requireIsEqual(0, pf.particles[(2,10)]) # 0 --> 0
+    grader.requireIsEqual(2, pf.particles[(8,4)])
+    grader.requireIsEqual(5, pf.particles[(12,6)])
+    grader.requireIsEqual(2, pf.particles[(7,8)])
+    grader.requireIsEqual(1, pf.particles[(11,6)])
+    grader.requireIsEqual(1, pf.particles[(18,7)]) # 0 --> 1
+    grader.requireIsEqual(0, pf.particles[(20,5)]) # 1 --> 0
+
+def test4a_1_windows():
     random.seed(3)
     pf = submission.ParticleFilter(30, 13)
     grader.requireIsEqual(69, len(pf.particles)) # This should not fail unless your code changed the random initialization code.
@@ -222,16 +275,46 @@ def test4a_1():
 
     grader.requireIsEqual(4, pf.particles[(3,9)])
     grader.requireIsEqual(0, pf.particles[(2,10)]) # 0 --> 0
-    grader.requireIsEqual(6, pf.particles[(8,4)])
+    grader.requireIsEqual(5, pf.particles[(8,4)])
     grader.requireIsEqual(3, pf.particles[(12,6)])
-    grader.requireIsEqual(0, pf.particles[(7,8)])
+    grader.requireIsEqual(1, pf.particles[(7,8)])
     grader.requireIsEqual(3, pf.particles[(11,6)])
     grader.requireIsEqual(0, pf.particles[(18,7)]) # 0 --> 1
     grader.requireIsEqual(0, pf.particles[(20,5)]) # 1 --> 0
 
-grader.addBasicPart('4a-1-basic', test4a_1, 2, description="4a basic test for PF elapseTime")
+if platform.system() == 'Windows':
+    grader.addBasicPart('4a-1-basic', test4a_1_windows, 2, description="4a basic test for PF elapseTime")
+else:
+    grader.addBasicPart('4a-1-basic', test4a_1, 2, description="4a basic test for PF elapseTime")
 
 def test4a_2():
+    random.seed(3)
+    pf = submission.ParticleFilter(30, 13)
+    grader.requireIsEqual(69, len(pf.particles)) # This should not fail unless your code changed the random initialization code.
+
+    pf.elapseTime()
+    grader.requireIsEqual(66, len(pf.particles)) # Most particles lie on the same (row, col) locations
+    pf.observe(555, 193, 800)
+
+    grader.requireIsEqual(200, sum(pf.particles.values())) # Do not lose particles
+    grader.requireIsEqual(3, len(pf.particles)) # Most particles lie on the same (row, col) locations
+    grader.requireIsEqual(0.025, pf.belief.getProb(20, 4))
+    grader.requireIsEqual(0.035, pf.belief.getProb(21, 5))
+    grader.requireIsEqual(0.0, pf.belief.getProb(21, 6))
+    grader.requireIsEqual(0.94, pf.belief.getProb(22, 6))
+    grader.requireIsEqual(0.0, pf.belief.getProb(22, 7))
+
+    pf.elapseTime()
+    grader.requireIsEqual(5, len(pf.particles)) # Most particles lie on the same (row, col) locations
+
+    pf.observe(660, 193, 50)
+    grader.requireIsEqual(0.0, pf.belief.getProb(20, 4))
+    grader.requireIsEqual(0.0, pf.belief.getProb(21, 5))
+    grader.requireIsEqual(0.095, pf.belief.getProb(21, 6))
+    grader.requireIsEqual(0.0, pf.belief.getProb(22, 6))
+    grader.requireIsEqual(0.905, pf.belief.getProb(22, 7))
+
+def test4a_2_windows():
     random.seed(3)
     pf = submission.ParticleFilter(30, 13)
     grader.requireIsEqual(69, len(pf.particles)) # This should not fail unless your code changed the random initialization code.
@@ -258,7 +341,10 @@ def test4a_2():
     grader.requireIsEqual(0.0, pf.belief.getProb(22, 6))
     grader.requireIsEqual(0.84, pf.belief.getProb(22, 7))
 
-grader.addBasicPart('4a-2-basic', test4a_2, 3, description="4a basic test for PF observe AND elapseTime")
+if platform.system() == 'Windows':
+    grader.addBasicPart('4a-2-basic', test4a_2_windows, 3, description="4a basic test for PF observe AND elapseTime")
+else:
+    grader.addBasicPart('4a-2-basic', test4a_2, 3, description="4a basic test for PF observe AND elapseTime")
 
 def test4a_3i(): # basic observe stress test
     random.seed(34)

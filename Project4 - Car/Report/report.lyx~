@@ -983,5 +983,163 @@ epsilon = 0.5$
 Problem 2: Emission probabilities
 \end_layout
 
+\begin_layout Standard
+This problem is not so hard.
+ Just follow the notes, we can finish the observe method well.
+ You can find more detials in the python script.
+ And we can drive the car with exact inference which can lead this result:
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted1.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Problem 3: Transition probabilities
+\end_layout
+
+\begin_layout Standard
+This problem is based on the situation that the car is moving according
+ to a transition probabilities.
+ Note:
+\end_layout
+
+\begin_layout Itemize
+Use the transition probabilities in self.transProb, which gives all ((oldTile,
+ newTile), transProb) key-val pairs that you must consider.
+ 
+\end_layout
+
+\begin_layout Itemize
+Other ((oldTile, newTile), transProb) pairs not in self.transProb have zero
+ probabilities and do not need to be considered.
+ 
+\end_layout
+
+\begin_layout Itemize
+util.Belief is a class (constructor) that represents the belief for a single
+ inference state of a single car (see util.py).
+ 
+\end_layout
+
+\begin_layout Itemize
+Be sure to update beliefs in self.belief ONLY based on the current self.belief
+ distribution.
+ Do NOT invoke any other updated belief values while modifying self.belief.
+ 
+\end_layout
+
+\begin_layout Itemize
+Use addProb and getProb to manipulate beliefs to add/get probabilities from
+ a belief (see util.py).
+ 
+\end_layout
+
+\begin_layout Itemize
+Don't forget to normalize self.belief!
+\end_layout
+
+\begin_layout Standard
+You can find more details in the python file.
+ And we can get the result as following figures showing respectively.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted2.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pasted3.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Problem 4: Particle filtering
+\end_layout
+
+\begin_layout Standard
+Though exact inference works well for the small maps, it wastes a lot of
+ effort computing probabilities for cars being on unlikely tiles.
+ We can solve this problem using a particle filter which has complexity
+ linear in the number of particles rather than linear in the number of tiles.
+ Implement all necessary methods for the ParticleFilter class in submission.py.
+ When complete, you should be able to track cars nearly as effectively as
+ with exact inference.
+\end_layout
+
+\begin_layout Standard
+This algorithm takes two steps: 
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Reweight the particles based on the observation
+\series default
+.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Concept: We had an old distribution of particles, we want to update these
+  these particle distributions with the given observed distance by the emission
+ probability.
+  Think of the particle distribution as the unnormalized posterior  probability
+ where many tiles would have 0 probability.
+  Tiles with 0 probabilities (no particles), we do not need to update.
+  This makes particle filtering runtime to be O(|particles|).
+  In comparison, exact inference (problem 2 + 3), most tiles would  would
+ have non-zero probabilities (though can be very small).
+  
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Resample the particles.
+  
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Concept: Now we have the reweighted (unnormalized) distribution, we can
+ now  resample the particles and update where each particle should be at.
+   
+\end_layout
+
+\begin_layout Itemize
+agentX: x location of your car (not the one you are tracking)  
+\end_layout
+
+\begin_layout Itemize
+agentY: y location of your car (not the one you are tracking)  
+\end_layout
+
+\begin_layout Itemize
+observedDist: true distance plus a mean-zero Gaussian with standard deviation
+ Const.SONAR_STD 
+\end_layout
+
+\end_deeper
 \end_body
 \end_document

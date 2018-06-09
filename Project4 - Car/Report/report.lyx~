@@ -1116,6 +1116,8 @@ Concept: We had an old distribution of particles, we want to update these
 
 \end_deeper
 \begin_layout Enumerate
+
+\series bold
 Resample the particles.
   
 \end_layout
@@ -1141,5 +1143,9 @@ observedDist: true distance plus a mean-zero Gaussian with standard deviation
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+
+\end_layout
+
 \end_body
 \end_document

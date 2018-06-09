@@ -1143,5 +1143,9 @@ observedDist: true distance plus a mean-zero Gaussian with standard deviation
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+See the submission,py for more details.
+\end_layout
+
 \end_body
 \end_document

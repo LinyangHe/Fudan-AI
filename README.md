@@ -1,5 +1,5 @@
 <center> 
-**Wishing there's no AI in heaven.** 
+**Wishing there's no AI in Paradise.** 
 </center>
 
 <div align=center>

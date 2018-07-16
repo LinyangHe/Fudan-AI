@@ -18,15 +18,11 @@ class Node:
         self.value = value
         self.visited = False
 
-
 def value(node, alpha, beta):
     if node.rule == 'max':
         return maxValue(node, alpha, beta)
     if node.rule == 'min':
         return minValue(node, alpha, beta)
-
-
-
 
 def maxValue(node, alpha, beta):
     if node.isLeaf:
@@ -40,8 +36,6 @@ def maxValue(node, alpha, beta):
             return v
         alpha = max(alpha, v)
     return v
-
-
 
 
 def minValue(node, alpha, beta):
